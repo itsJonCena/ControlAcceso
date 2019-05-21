@@ -14,7 +14,7 @@ app.use(require('./routes/index'))
  /* */
 
 
-mongoose.connect('mongodb://192.168.0.9:27017/Pruebas', {useNewUrlParser: true},(err,res) =>{
+mongoose.connect(process.env.URLDB, {useNewUrlParser: true},(err,res) =>{
     if(err) throw err;
 
     console.log('Connected to MongoDB ...');

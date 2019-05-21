@@ -35,3 +35,11 @@ process.env.SEED = process.env.SEED || 'seed-desarrollo';
  * Bade de datos
  * ======================
  */
+let urlDB;
+
+if (process.env.NODE_ENV === 'dev') {
+    urlDB = 'mongodb://192.168.0.9:27017/Pruebas';
+} else {
+    urlDB = process.env.MONGO_URI;
+}
+process.env.URLDB = urlDB;
