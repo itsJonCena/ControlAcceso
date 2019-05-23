@@ -12,7 +12,7 @@ let verificaToken = (req, res, next) => {
     jwk.verify(token, process.env.SEED, (err, decoded) => {
         if (err) {
             return res.status(401).json({
-                ok : false,
+                ok: false,
                 err: {
                     message: 'Token no valido.'
                 }
@@ -22,8 +22,32 @@ let verificaToken = (req, res, next) => {
         req.usuario = decoded.usuario;
         next();
 
-    })
+    });
 
+}
+
+/**
+ * ===============
+ * Verificacion de token IMG
+ * ===============
+ */
+
+let verificaTokenImg = (req, res, next) => {
+    let token = req.query.token;
+
+    jwk.verify(token, process.env.SEED, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({
+                ok: false,
+                err: {
+                    message: 'Token no valido.'
+                }
+            })
+        }
+        req.usuario = decoded.usuario;
+        next();
+
+    });
 }
 
 /**
@@ -34,10 +58,10 @@ let verificaToken = (req, res, next) => {
 let verificaAdmin_Role = (req, res, next) => {
 
     let usuario = req.usuario;
-    
-    if (usuario.role === 'ADMIN_ROLE'){
+
+    if (usuario.role === 'ADMIN_ROLE') {
         next();
-    }else {
+    } else {
 
         return res.status(401).json({
             ok: false,
@@ -54,5 +78,6 @@ let verificaAdmin_Role = (req, res, next) => {
 
 module.exports = {
     verificaToken,
-    verificaAdmin_Role
+    verificaAdmin_Role,
+    verificaTokenImg
 }
