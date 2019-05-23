@@ -24,7 +24,7 @@ app.get('/usuario', verificaToken, (req, res) => {
                     err
                 });
             }
-            Usuario.count({
+            Usuario.countDocuments({
                 estado: true
             }, (err, conteo) => {
                 res.json({
@@ -113,7 +113,7 @@ app.delete('/usuario/:id', [verificaToken, verificaAdmin_Role], function (req, r
             });
         }
 
-        res.json({
+        return res.json({
             ok: true,
             usuario: usuarioBorrado
         })
@@ -121,4 +121,4 @@ app.delete('/usuario/:id', [verificaToken, verificaAdmin_Role], function (req, r
 
 });
 
-module.exports = app
+module.exports = app;
